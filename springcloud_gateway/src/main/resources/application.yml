@@ -9,6 +9,13 @@ spring:
       default-filters:
         - AddRequestHeader=gateway-env, springcloud-gateway
       routes:
+        - id: "api_server"
+          uri: "http://127.0.0.1:5001"
+          predicates:
+            - Path=/**
+          filters:
+            - name: PreserveHostHeader
+              args: { }
         - id: "server_v2"
           uri: "http://127.0.0.1:8002"
           predicates:
