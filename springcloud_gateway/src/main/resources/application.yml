@@ -13,7 +13,12 @@ spring:
           uri: "http://127.0.0.1:5001"
           predicates:
             - Path=/**
+            - name: CustomReadBody
+              args:
+                inClass: '#{T(String)}'
+                predicate: '#{@bodyPredicate}' #注入实现predicate接口类
           filters:
+            - Demo=true
             - name: PreserveHostHeader
               args: { }
         - id: "server_v2"
@@ -39,4 +44,4 @@ spring:
             - Demo=true
             - PreserveHostHeader # 防止host被修改为localhost
   codec:
-    max-in-memory-size: 5MB # 修复拦截POST请求后内存超出缓冲区
+    max-in-memory-size: 120MB # 修复拦截POST请求后内存超出缓冲区
